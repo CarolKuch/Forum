@@ -8,24 +8,21 @@ namespace MessageApp.Services
 {
     public class UserService: IUserService
     {
-        private DataContext _context;
+        private IUserRepository _userRepository;
 
-        public UserService(DataContext context)
+        public UserService(IUserRepository userRepository)
         {
-            _context = context;
+            _userRepository = userRepository;
         }
 
-        public User GetUser(int id)
+        public async Task<User> GetUser(int id)
         {
-            var user = new User();
-            
-            return user;
+            return await _userRepository.GetUser(id);
         }
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<string>> PostUser(User user)
         {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-            return new OkObjectResult(await _context.Users.FirstAsync());
+            return await _userRepository.PostUser(user);
         }
+
     }
 }

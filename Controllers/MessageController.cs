@@ -18,13 +18,13 @@ namespace MessageApp.Controllers
         }
 
         [HttpGet]
-        public Message GetMessage(int id)
+        public async Task<Message> GetMessage(int id)
         {
-            return _messageService.GetMessage(id);
+            return await _messageService.GetMessage(id);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Message>> PostMessage(Message message)
+        public async Task<ActionResult<string>> PostMessage(Message message)
         {
             return await _messageService.PostMessage(message);
         }
