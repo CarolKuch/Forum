@@ -8,25 +8,25 @@ namespace MessageApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class MessageController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private IMessageService _messageService;
+        private IUserService _userService;
 
-        public MessageController(IMessageService messageService)
+        public UserController(IUserService userService)
         {
-            _messageService = messageService;
+            _userService = userService;
         }
 
         [HttpGet]
-        public Message GetMessage(int id)
+        public async Task<User> GetUser(int id)
         {
-            return _messageService.GetMessage(id);
+            return await _userService.GetUser(id);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Message>> PostMessage(Message message)
+        public async Task<ActionResult<string>> PostUser(User user)
         {
-            return await _messageService.PostMessage(message);
+            return await _userService.PostUser(user);
         }
 
         //[HttpPut]

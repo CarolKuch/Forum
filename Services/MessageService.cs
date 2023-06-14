@@ -8,24 +8,20 @@ namespace MessageApp.Services
 {
     public class MessageService: IMessageService
     {
-        private DataContext _context;
+        private IMessageRepository _messageRepository;
 
-        public MessageService(DataContext context)
+        public MessageService(IMessageRepository messageRepository)
         {
-            _context = context;
+            _messageRepository = messageRepository;
         }
 
-        public Message GetMessage(int id)
+        public async Task<Message> GetMessage(int id)
         {
-            var message = new Message();
-            message.Content = "ABC";
-            return message;
+            return await _messageRepository.GetMessage(id);
         }
-        public async Task<ActionResult<Message>> PostMessage(Message message)
+        public async Task<ActionResult<string>> PostMessage(Message message)
         {
-            _context.Messages.Add(message);
-            await _context.SaveChangesAsync();
-            return new OkObjectResult(await _context.Messages.FirstAsync());
+            return await _messageRepository.PostMessage(message);
         }
     }
 }
