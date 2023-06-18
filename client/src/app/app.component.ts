@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { error } from 'console';
+import { Message } from './_models/Message';
+import { map } from 'rxjs';
+
+
 
 @Component({
   selector: 'app-root',
@@ -12,7 +16,7 @@ export class AppComponent implements OnInit {
   messages: any;
   constructor(private http: HttpClient) { }
   ngOnInit(): void {
-    this.http.get('https://localhost:7287/message').subscribe({
+    this.http.get('https://localhost:7287/Message/dtos').subscribe({
       next: response => this.messages = response,
       error: error => console.log(error),
       complete: () => console.log("Get messages request completed")
