@@ -8,7 +8,7 @@ export class Message implements IMessage {
   public userLogin: string;
   public userId: number;
   public isUserAdmin: boolean;
-  constructor(messageId: number, content: string, date: string, time: string, userLogin: string, userId: number, isUserAdmin: boolean) {
+  constructor(messageId: number = -1, content: string = '', date: string = '', time: string = '', userLogin: string = '', userId: number = -1, isUserAdmin: boolean = false) {
     this.messageId = messageId;
     this.content = content;
     this.date = date;

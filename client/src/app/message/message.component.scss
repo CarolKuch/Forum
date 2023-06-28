@@ -1,0 +1,32 @@
+.message{
+  margin: var(--app-margin-medium);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.message-content{
+  grid-area: 2 / 1 / 3 / 3;
+  background-color: var(--app-white);
+  padding: var(--app-padding-small);
+}
+
+.message-info{
+  grid-area: 1 / 1 / 2 / 3;
+  padding: var(--app-padding-small);
+}
+
+.message-info{
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  display: grid;
+}
+
+.message-info-dateTime{
+  margin-left: auto;
+}
+
+.message-info-time
+{
+  margin-right: var(--app-margin-small);
+}
