@@ -1,3 +1,5 @@
+using AutoMapper;
+using MessageApp.AutoMapper;
 using MessageApp.Data;
 using MessageApp.Interfaces;
 using MessageApp.Repositories;
@@ -14,6 +16,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddCors();
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new MessageProfile());
+});
+
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
 builder.Services.AddScoped<IMessageService, MessageService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
@@ -21,7 +32,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

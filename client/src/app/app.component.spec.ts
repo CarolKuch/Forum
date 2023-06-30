@@ -1,15 +1,22 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 import { AppComponent } from './app.component';
+import { MessageComponent } from './message/message.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        HttpClientTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        MessageComponent,
+        NavigationComponent
       ],
     }).compileComponents();
   });
@@ -26,10 +33,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('client');
   });
 
-  it('should render span "Forum"', () => {
+  it('should render logo', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('span')?.textContent).toContain('Forum');
+    expect(compiled.querySelector('img'));
   });
 });

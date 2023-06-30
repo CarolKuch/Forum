@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global color palette */
+@import './assets/styles/variables';
+
+body{
+  color: var(--app-black);
+  margin: 0;
+}
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';

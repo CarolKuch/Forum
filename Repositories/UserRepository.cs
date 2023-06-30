@@ -20,6 +20,11 @@ namespace MessageApp.Repositories
             return await _context.Users.Where(x => x.UserId == id).SingleAsync();
         }
 
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
         public async Task<ActionResult<string>> PostUser(User user)
         {
             _context.Users.Add(user);

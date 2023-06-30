@@ -1,6 +1,2 @@
-<span>Forum</span>
-<ul *ngFor="let message of messages">
-  <li>Wiadomość: {{message.content}}</li>
-  <li>Data: {{message.date}}</li>
-  <li>Użytkownik: {{message.userId}}</li>
-</ul>
+<app-navigation></app-navigation>
+<app-message *ngFor="let message of messages" [message]="message"></app-message>
