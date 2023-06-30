@@ -1,4 +1,5 @@
 ﻿using MessageApp.Data;
+using MessageApp.DTOs;
 using MessageApp.Interfaces;
 using MessageApp.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +16,18 @@ namespace MessageApp.Services
             _messageRepository = messageRepository;
         }
 
-        public async Task<Message> GetMessage(int id)
+        public async Task<ActionResult<Message>> GetMessage(int id)
         {
             return await _messageRepository.GetMessage(id);
+        }
+        public async Task<ActionResult<IEnumerable<Message>>> GetMessages()
+        {
+            return await _messageRepository.GetMessages();
+        }
+
+        public async Task<List<MessageAuthorDto>> GetMessageAuthorDtos()
+        {
+            return await _messageRepository.GetMessageAuthorDtos();
         }
         public async Task<ActionResult<string>> PostMessage(Message message)
         {
