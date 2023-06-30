@@ -12,6 +12,6 @@ namespace MessageApp.Models
         public string Title { get; set; }
         public DateTime Date { get; set; }
         
-        public ICollection<Category> Threads { get; set; }
+        public ICollection<Topic> Topics { get; set; }
     }
 }

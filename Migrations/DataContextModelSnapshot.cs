@@ -23,9 +23,6 @@ namespace MessageApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CategoryID1")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
@@ -34,8 +31,6 @@ namespace MessageApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("CategoryID");
-
-                    b.HasIndex("CategoryID1");
 
                     b.HasIndex("Title")
                         .IsUnique();
@@ -88,6 +83,8 @@ namespace MessageApp.Migrations
 
                     b.HasKey("TopisID");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Topics");
                 });
 
@@ -123,13 +120,6 @@ namespace MessageApp.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("MessageApp.Models.Category", b =>
-                {
-                    b.HasOne("MessageApp.Models.Category", null)
-                        .WithMany("Threads")
-                        .HasForeignKey("CategoryID1");
-                });
-
             modelBuilder.Entity("MessageApp.Models.Message", b =>
                 {
                     b.HasOne("MessageApp.Models.Topic", null)
@@ -145,9 +135,18 @@ namespace MessageApp.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MessageApp.Models.Topic", b =>
+                {
+                    b.HasOne("MessageApp.Models.Category", null)
+                        .WithMany("Topics")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("MessageApp.Models.Category", b =>
                 {
-                    b.Navigation("Threads");
+                    b.Navigation("Topics");
                 });
 
             modelBuilder.Entity("MessageApp.Models.Topic", b =>

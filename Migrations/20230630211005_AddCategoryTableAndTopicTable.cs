@@ -25,17 +25,11 @@ namespace MessageApp.Migrations
                     CategoryID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
-                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CategoryID1 = table.Column<int>(type: "INTEGER", nullable: true)
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.CategoryID);
-                    table.ForeignKey(
-                        name: "FK_Categories_Categories_CategoryID1",
-                        column: x => x.CategoryID1,
-                        principalTable: "Categories",
-                        principalColumn: "CategoryID");
                 });
 
             migrationBuilder.CreateTable(
@@ -51,6 +45,12 @@ namespace MessageApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Topics", x => x.TopisID);
+                    table.ForeignKey(
+                        name: "FK_Topics_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "CategoryID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -59,15 +59,15 @@ namespace MessageApp.Migrations
                 column: "TopicId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_CategoryID1",
-                table: "Categories",
-                column: "CategoryID1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Categories_Title",
                 table: "Categories",
                 column: "Title",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Topics_CategoryId",
+                table: "Topics",
+                column: "CategoryId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Messages_Topics_TopicId",
@@ -86,10 +86,10 @@ namespace MessageApp.Migrations
                 table: "Messages");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Topics");
 
             migrationBuilder.DropTable(
-                name: "Topics");
+                name: "Categories");
 
             migrationBuilder.DropIndex(
                 name: "IX_Messages_TopicId",
