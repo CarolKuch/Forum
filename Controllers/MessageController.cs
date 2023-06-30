@@ -18,7 +18,7 @@ namespace MessageApp.Controllers
             _messageService = messageService;
         }
 
-       [HttpGet]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Message>>> GetMessages()
         {
             return await _messageService.GetMessages();
@@ -31,7 +31,7 @@ namespace MessageApp.Controllers
         }
 
         [HttpGet("dtos")]
-        public async Task<List<MessageAuthorDto>    > GetMessageAuthorDtos()
+        public async Task<List<MessageAuthorDto>> GetMessageAuthorDtos()
         {
             return await _messageService.GetMessageAuthorDtos();
         }
