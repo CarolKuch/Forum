@@ -6,6 +6,13 @@ namespace MessageApp.Services
 {
     public class CategoryService : ICategoryService
     {
+        private ICategoryRepository _categoryRepository;
+
+        public CategoryService(ICategoryRepository categoryRepository)
+        {
+            _categoryRepository = categoryRepository;
+        }
+
         public Task<ActionResult<Category>> GetCategory(int id)
         {
             throw new NotImplementedException();
@@ -16,9 +23,9 @@ namespace MessageApp.Services
             throw new NotImplementedException();
         }
 
-        public Task<ActionResult<string>> PostCategory(Category category)
+        public async Task<ActionResult<string>> PostCategory(Category category)
         {
-            throw new NotImplementedException();
+            return await _categoryRepository.PostCategory(category);
         }
     }
 }

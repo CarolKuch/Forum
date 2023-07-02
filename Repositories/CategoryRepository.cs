@@ -1,4 +1,5 @@
-﻿using MessageApp.Interfaces;
+﻿using MessageApp.Data;
+using MessageApp.Interfaces;
 using MessageApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,6 +7,13 @@ namespace MessageApp.Services
 {
     public class CategoryRepository : ICategoryRepository
     {
+        private DataContext _context;
+
+        public CategoryRepository(DataContext context)
+        {
+            _context = context;
+        }
+
         public Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
             throw new NotImplementedException();
@@ -16,9 +24,12 @@ namespace MessageApp.Services
             throw new NotImplementedException();
         }
 
-        public Task<ActionResult<string>> PostCategory(Category category)
+        public async Task<ActionResult<string>> PostCategory(Category category)
         {
-            throw new NotImplementedException();
+            _context.Categories.Add(category);
+            await _context.SaveChangesAsync();
+
+            return "Category added successfully";
         }
     }
 }

@@ -17,21 +17,22 @@ namespace MessageApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public Task<ActionResult<Category>> GetCategory(int id)
+        public async Task<ActionResult<Category>> GetCategory(int id)
         {
-            return _categoryService.GetCategory(id);
+            return await _categoryService.GetCategory(id);
         }
 
         [HttpGet]
-        public Task<ActionResult<IEnumerable<Category>>> GetCatergories()
+        public async Task<ActionResult<IEnumerable<Category>>> GetCatergories()
         {
-            return _categoryService.GetCategories();
+            return await _categoryService.GetCategories();
         }
 
         [HttpPost]
-        public Task<ActionResult<string>> PostCategory(Category category) 
+        public async Task<ActionResult<string>> PostCategory(Category category) 
         { 
-            return _categoryService.PostCategory(category);
+            return await _categoryService.PostCategory(category);
         }
+
     }
 }
