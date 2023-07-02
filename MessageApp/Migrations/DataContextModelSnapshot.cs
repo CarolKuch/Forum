@@ -17,6 +17,27 @@ namespace MessageApp.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
 
+            modelBuilder.Entity("MessageApp.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CategoryID");
+
+                    b.HasIndex("Title")
+                        .IsUnique();
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("MessageApp.Models.Message", b =>
                 {
                     b.Property<int>("MessageID")
@@ -29,14 +50,42 @@ namespace MessageApp.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("TopicId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("MessageID");
 
+                    b.HasIndex("TopicId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("MessageApp.Models.Topic", b =>
+                {
+                    b.Property<int>("TopisID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("TopisID");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Topics");
                 });
 
             modelBuilder.Entity("MessageApp.Models.User", b =>
@@ -73,11 +122,36 @@ namespace MessageApp.Migrations
 
             modelBuilder.Entity("MessageApp.Models.Message", b =>
                 {
+                    b.HasOne("MessageApp.Models.Topic", null)
+                        .WithMany("Messages")
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MessageApp.Models.User", null)
                         .WithMany("Messages")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MessageApp.Models.Topic", b =>
+                {
+                    b.HasOne("MessageApp.Models.Category", null)
+                        .WithMany("Topics")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MessageApp.Models.Category", b =>
+                {
+                    b.Navigation("Topics");
+                });
+
+            modelBuilder.Entity("MessageApp.Models.Topic", b =>
+                {
+                    b.Navigation("Messages");
                 });
 
             modelBuilder.Entity("MessageApp.Models.User", b =>

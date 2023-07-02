@@ -14,6 +14,8 @@ namespace MessageApp.Models
 
         [Display(Name = "User")]
         public int UserId { get; set; }
+        [Display(Name = "Topic")]
+        public int TopicId { get; set; }
 
     }
 }
