@@ -40,7 +40,15 @@ namespace MessageApp.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> PostMessage(Message message)
         {
-            return await _messageService.PostMessage(message);
+
+            if (message.Content?.Length > 0)
+            {
+                return await _messageService.PostMessage(message);
+            }
+            else
+            {
+                return "Message invalid";
+            }
         }
     }
 }

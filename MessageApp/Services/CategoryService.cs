@@ -25,7 +25,15 @@ namespace MessageApp.Services
 
         public async Task<ActionResult<string>> PostCategory(Category category)
         {
-            return await _categoryRepository.PostCategory(category);
+
+            if (category.Title?.Length > 0)
+            {
+                return await _categoryRepository.PostCategory(category);
+            }
+            else
+            {
+                return "Category invalid";
+            }
         }
     }
 }

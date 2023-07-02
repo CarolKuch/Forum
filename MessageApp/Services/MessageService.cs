@@ -31,7 +31,14 @@ namespace MessageApp.Services
         }
         public async Task<ActionResult<string>> PostMessage(Message message)
         {
-            return await _messageRepository.PostMessage(message);
+            if (message.Content?.Length > 0)
+            {
+                return await _messageRepository.PostMessage(message);
+            }
+            else
+            {
+                return "Message invalid";
+            }
         }
     }
 }
