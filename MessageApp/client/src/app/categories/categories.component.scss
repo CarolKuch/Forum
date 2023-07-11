@@ -1,0 +1,19 @@
+.categories
+{
+  margin: var(--app-margin-medium);
+  border: 2px solid var(--app-khaki);
+}
+
+h2{
+  margin: var(--app-margin-medium);
+  text-align: center;
+}
+
+.categories-headers{
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  font-weight: bold;
+  background-color: var(--app-yellow);
+  padding: var(--app-padding-medium) var(--app-padding-small);
+  border: 1px solid var(--app-khaki);
+}

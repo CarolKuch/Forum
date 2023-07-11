@@ -7,12 +7,20 @@ import { AppComponent } from './app.component';
 import { MessageComponent } from './message/message.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CategoryComponent } from './categories/category/category.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { TopicComponent } from './topic/topic.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MessageComponent,
-    NavigationComponent
+    NavigationComponent,
+    CategoryComponent,
+    CategoriesComponent,
+    TopicComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

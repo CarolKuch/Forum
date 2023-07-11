@@ -14,10 +14,22 @@ import { map } from 'rxjs';
 export class AppComponent implements OnInit {
   title = 'client';
   messages: any;
+  categories: any;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.http.get('https://localhost:7287/Category').subscribe({
+      next: response => this.categories = response,
+      error: error => console.log(error),
+      complete: () => {
+        for (let i = 0; i < this.categories.length; i++) {
+          this.categories[i].time = this.categories[i].date.slice(11, 16);
+          this.categories[i].date = this.categories[i].date.slice(0, 10);
+        }
+      }
+    });
+
     this.http.get('https://localhost:7287/Message/dtos').subscribe({
       next: response => this.messages = response,
       error: error => console.log(error),

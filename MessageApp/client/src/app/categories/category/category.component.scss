@@ -1,0 +1,10 @@
+.category-title::first-letter{
+  text-transform: capitalize;
+}
+
+.category{
+  padding: var(--app-padding-medium) var(--app-padding-small);
+  border: 1px solid var(--app-khaki);
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+}
