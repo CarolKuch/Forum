@@ -18,11 +18,13 @@ img{
   border-color: var(--app-yellow);
 }
 
-.nav-item .nav-link{
+a{
   color: var(--app-khaki);
+  text-decoration: none;
+  margin: var(--app-magrin-medium);
 }
 
-.active .nav-link{
+.is-active{
   color: var(--app-white);
 }
 

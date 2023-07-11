@@ -2,6 +2,7 @@
 using MessageApp.Interfaces;
 using MessageApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MessageApp.Services
 {
@@ -14,9 +15,9 @@ namespace MessageApp.Services
             _context = context;
         }
 
-        public Task<ActionResult<IEnumerable<Category>>> GetCategories()
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
-            throw new NotImplementedException();
+            return await _context.Categories.ToListAsync();
         }
 
         public Task<ActionResult<Category>> GetCategory(int id)

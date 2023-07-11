@@ -20,7 +20,7 @@ namespace MessageApp.Services
 
         public Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
-            throw new NotImplementedException();
+            return _categoryRepository.GetCategories();
         }
 
         public async Task<ActionResult<string>> PostCategory(Category category)
