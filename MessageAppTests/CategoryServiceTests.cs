@@ -19,10 +19,26 @@ namespace MessageAppTests
         readonly Mock<IConfiguration> configuration;
         readonly Mock<ILogger<ICategoryService>> logger;
 
+        private Mock<ICategoryRepository> _mockCategoryRepository = new Mock<ICategoryRepository>();
+        private Category[] _categories = { 
+            new Category { CategoryID = 1, Date = DateTime.MinValue, Title = "ABC" },
+            new Category { CategoryID = 2, Date = DateTime.MaxValue, Title = "BBC" } };
+
         public CategoryServiceTests()
         {
             this.configuration = new Mock<IConfiguration>();
             this.logger = new Mock<ILogger<ICategoryService>>();
+        }
+
+        [Fact]
+        public async void GetCategory_ReturnsCategories_WhenCategoriesFound()
+        {
+            _mockCategoryRepository.Setup(r => r.GetCategories()).ReturnsAsync(_categories);
+            ICategoryService categoryService = new CategoryService(_mockCategoryRepository.Object);
+
+            var result = (await categoryService.GetCategories()).Value;
+            Assert.Equal(result, _categories);
+            Assert.NotNull(result);
         }
 
         [Fact]

@@ -30,6 +30,12 @@ namespace MessageApp.Controllers
             return await _messageService.GetMessage(id);
         }
 
+        [HttpGet("messageAuthorDto/{id}")]
+        public async Task<MessageAuthorDto> GetMessageAuthorDtoByMessageId(int messageId)
+        {
+            return await _messageService.GetMessageAuthorDtoByMessageId(messageId);
+        }
+
         [HttpGet("dtos")]
         public async Task<List<MessageAuthorDto>> GetMessageAuthorDtos()
         {
@@ -38,12 +44,11 @@ namespace MessageApp.Controllers
        
 
         [HttpPost]
-        public async Task<ActionResult<string>> PostMessage(Message message)
+        public async Task<ActionResult<string>> PostMessage(string messageContent, int userId, int topicId)
         {
-
-            if (message.Content?.Length > 0)
+            if (messageContent.Length > 0)
             {
-                return await _messageService.PostMessage(message);
+                return await _messageService.PostMessage(messageContent, userId, topicId);
             }
             else
             {

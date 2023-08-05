@@ -1,0 +1,17 @@
+.topics
+{
+  margin: var(--app-margin-medium);
+  border: 2px solid var(--app-khaki);
+}
+
+.topic-headers-title{
+  text-transform: capitalize;
+}
+
+.topic-headers{
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  background-color: var(--app-white);
+  padding: var(--app-padding-medium) var(--app-padding-small);
+  border: 1px solid var(--app-khaki);
+}

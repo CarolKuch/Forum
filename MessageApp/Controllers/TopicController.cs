@@ -1,11 +1,12 @@
-﻿using MessageApp.Interfaces;
+﻿using MessageApp.DTOs;
+using MessageApp.Interfaces;
 using MessageApp.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MessageApp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class TopicController : ControllerBase
     {
@@ -22,6 +23,18 @@ namespace MessageApp.Controllers
             return _topicService.GetTopic(id);
         }
 
+        [HttpGet("{id}/messages")]
+        public Task<ActionResult<IEnumerable<MessageAuthorDto>>> GetMessagesInTopic(int id)
+        {
+            return _topicService.GetMessagesInTopic(id);
+        }
+
+        [HttpGet("categoryId/{categoryId}")]
+        public async Task<ActionResult<IEnumerable<Topic>>> GetTopicsByCategoryId(int categoryId)
+        {
+            return await _topicService.GetTopicsByCategoryId(categoryId);
+        }
+
         [HttpGet]
         public Task<ActionResult<IEnumerable<Topic>>> GetTopics()
         {
@@ -29,9 +42,9 @@ namespace MessageApp.Controllers
         }
 
         [HttpPost]
-        public Task<ActionResult<string>> PostTopic(Topic topic)
+        public Task<ActionResult<string>> PostTopic(string title, int categoryId)
         {
-            return _topicService.PostTopic(topic);
+            return _topicService.PostTopic(title, categoryId);
         }
     }
 }

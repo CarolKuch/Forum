@@ -36,7 +36,7 @@ builder.Services.AddScoped<ITopicRepository, TopicRepository>();
 
 var app = builder.Build();
 
-app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
 
 if (app.Environment.IsDevelopment())
 {

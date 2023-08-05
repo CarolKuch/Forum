@@ -1,5 +1,5 @@
 export interface ICategory {
-  categoryId: number;
+  categoryID: number;
   title: string;
   date: string;
   time: string;

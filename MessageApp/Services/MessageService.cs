@@ -2,6 +2,7 @@
 using MessageApp.DTOs;
 using MessageApp.Interfaces;
 using MessageApp.Models;
+using MessageApp.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,10 +11,15 @@ namespace MessageApp.Services
     public class MessageService: IMessageService
     {
         private IMessageRepository _messageRepository;
+        private ITopicRepository _topicRepository;
+        private IUserRepository _userRepository;
 
-        public MessageService(IMessageRepository messageRepository)
+        public MessageService(IMessageRepository messageRepository, ITopicRepository topicRepository, IUserRepository userRepository)
         {
+
             _messageRepository = messageRepository;
+            _topicRepository = topicRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<ActionResult<Message>> GetMessage(int id)
@@ -25,15 +31,26 @@ namespace MessageApp.Services
             return await _messageRepository.GetMessages();
         }
 
+        public async Task<MessageAuthorDto> GetMessageAuthorDtoByMessageId(int messageId)
+        {
+            return await _messageRepository.GetMessageAuthorDtoByMessageId(messageId);
+        }
+
         public async Task<List<MessageAuthorDto>> GetMessageAuthorDtos()
         {
             return await _messageRepository.GetMessageAuthorDtos();
         }
-        public async Task<ActionResult<string>> PostMessage(Message message)
+
+        public async Task<ActionResult<string>> PostMessage(string messageContent, int userId, int topicId)
         {
-            if (message.Content?.Length > 0)
+            var message = new Message();
+            if (messageContent.Length > 0)
             {
-                return await _messageRepository.PostMessage(message);
+                message.Content = messageContent;
+                message.UserId = userId;
+                message.TopicId = topicId;
+                var result = await _messageRepository.PostMessage(message);
+                return result;
             }
             else
             {

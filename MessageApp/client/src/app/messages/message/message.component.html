@@ -1,0 +1,13 @@
+<div class="message" *ngIf="message">
+  <div class="message-info">
+    <div class="message-info-user">
+      <span class="message-info-userLogin">{{message.userLogin}}</span>
+      <span class="message-info-isUserAdmin" *ngIf="message.isUserAdmin"> (Admin)</span>
+    </div>
+    <div class="message-info-dateTime">
+      <span class="message-info-time">{{message.time}}</span>
+      <span class="message-info-date">{{message.date}}</span>
+    </div>
+  </div>
+  <div class="message-content">{{message.content}}</div>
+</div>

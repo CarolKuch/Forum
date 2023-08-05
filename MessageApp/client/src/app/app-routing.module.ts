@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TopicComponent } from './topic/topic.component';
+import { TopicComponent } from './topics/topic/topic.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { TopicsComponent } from './topics/topics.component';
+import { MessageComponent } from './messages/message/message.component';
+import { MessagesComponent } from './messages/messages.component';
 
 const routes: Routes = [
   { path: 'categories', component: CategoriesComponent },
-  { path: 'topic/:categoryId', component: TopicComponent },
+  { path: 'topics/:categoryId', component: TopicsComponent },
+  { path: 'Topic/:topisId/messages', component: MessagesComponent },
   { path: '', redirectTo: '/categories', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

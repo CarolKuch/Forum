@@ -8,7 +8,8 @@ namespace MessageApp.Interfaces
     {
         public Task<ActionResult<Message>> GetMessage(int id);
         public Task<ActionResult<IEnumerable<Message>>> GetMessages();
+        public Task<MessageAuthorDto> GetMessageAuthorDtoByMessageId(int messageId);
         public Task<List<MessageAuthorDto>> GetMessageAuthorDtos();
-        public Task<ActionResult<string>> PostMessage(Message message);
+        public Task<ActionResult<string>> PostMessage(string messageContent, int userId, int topicId);
     }
 }

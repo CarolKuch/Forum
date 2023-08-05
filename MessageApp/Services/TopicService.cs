@@ -1,4 +1,5 @@
-﻿using MessageApp.Interfaces;
+﻿using MessageApp.DTOs;
+using MessageApp.Interfaces;
 using MessageApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +7,28 @@ namespace MessageApp.Services
 {
     public class TopicService : ITopicService
     {
-        public Task<ActionResult<Topic>> GetTopic(int id)
+        private ITopicRepository _topicRepository;
+        private ICategoryRepository _categoryRepository;
+
+        public TopicService(ITopicRepository topicRepository, ICategoryRepository categoryRepository)
         {
-            throw new NotImplementedException();
+            _topicRepository = topicRepository;
+            _categoryRepository = categoryRepository;
+        }
+
+        public async Task<ActionResult<Topic>> GetTopic(int topicId)
+        {
+            return await _topicRepository.GetTopic(topicId);
+        }
+
+        public async Task<ActionResult<IEnumerable<MessageAuthorDto>>> GetMessagesInTopic(int topicId)
+        {
+            return await _topicRepository.GetMessagesInTopic(topicId);
+        }
+
+        public async Task<ActionResult<IEnumerable<Topic>>> GetTopicsByCategoryId(int categoryId)
+        {
+            return await _topicRepository.GetTopicsByCategoryId(categoryId);
         }
 
         public Task<ActionResult<IEnumerable<Topic>>> GetTopics()
@@ -16,9 +36,19 @@ namespace MessageApp.Services
             throw new NotImplementedException();
         }
 
-        public Task<ActionResult<string>> PostTopic(Topic topic)
+        public async Task<ActionResult<string>> PostTopic(string title, int categoryId)
         {
-            throw new NotImplementedException();
+            var topic = new Topic();
+            if (title.Length > 0 && categoryId != -1)
+            {
+                topic.Title = title;
+                topic.CategoryId = _categoryRepository.GetCategory(categoryId).Result.Value.CategoryID;
+                return await _topicRepository.PostTopic(topic);
+            }
+            else
+            {
+                return "Message invalid";
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Message } from '../_models/Message';
+import { Message } from '../../_models/Message';
 
 @Component({
   selector: 'app-message',
@@ -7,5 +7,5 @@ import { Message } from '../_models/Message';
   styleUrls: ['./message.component.scss']
 })
 export class MessageComponent {
-  @Input() message: Message | undefined;
+  @Input() message!: Message;
 }
