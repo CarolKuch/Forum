@@ -16,55 +16,75 @@ namespace MessageAppTests
     public class MessageServiceTests
 
     {
-        readonly Mock<IConfiguration> configuration;
-        readonly Mock<ILogger<IMessageService>> logger;
+        private User _user = new User()
+        {
+            IsAdmin = false,
+            UserId = 1,
+            Login = "BOB",
+            Name = "BOB",
+            LastName = "B",
+        };
+        
+        private Topic _topic = new Topic()
+        {
+            Title = "ABC",
+            TopisID = 1,
+            CategoryId = 1
+        };
+
+        private Mock<IUserRepository> _mockUserRepository = new Mock<IUserRepository>();
+        private Mock<ITopicRepository> _mockTopicRepository = new Mock<ITopicRepository>();
+        private Mock<IMessageRepository> _mockMessageRepository = new Mock<IMessageRepository>();
 
         public MessageServiceTests()
         {
-            this.configuration = new Mock<IConfiguration>();
-            this.logger = new Mock<ILogger<IMessageService>>();
+            
         }
 
         [Fact]
         public async void PostMessage_ReturnsString_WhenMessagePosted()
         {
-            //Arrange
-            Message message = new Message()
+            var message = new Message()
             {
-                Content = "XYZ",
-                TopicId = 3,
+                Content = "ABC",
+                TopicId = 1,
                 UserId = 1
             };
-            Mock<IMessageRepository> mockMessageRepository = new Mock<IMessageRepository>();
-            mockMessageRepository.Setup(r => r.PostMessage(message)).ReturnsAsync("Message added successfully");
-            IMessageService messageService = new MessageService(mockMessageRepository.Object);
-            string expected = "Message added successfully";
 
-            //Act
-            
-            var result = await messageService.PostMessage(message);
+            var expectedMessage = "Message added successfully";
 
-            //Assert
-            Assert.Equal(expected, result?.Value?.ToString());
+            _mockUserRepository.Setup(r => r.GetUser(message.UserId)).ReturnsAsync(_user);
+            _mockTopicRepository.Setup(r => r.GetTopic(message.TopicId)).ReturnsAsync(_topic);
+            _mockMessageRepository.Setup(r => r.PostMessage(It.Is<Message>(x => x.UserId == _user.UserId && x.TopicId == _topic.TopisID)))
+                .ReturnsAsync(expectedMessage);
+            IMessageService messageService = new MessageService(
+                _mockMessageRepository.Object, _mockTopicRepository.Object, _mockUserRepository.Object);
 
+            var result = await messageService.PostMessage(message.Content, message.UserId, message.TopicId);
+            Assert.Equal(expectedMessage, result?.Value?.ToString());
         }
 
         [Fact]
         public async void PostMessage_ReturnsString_WhenMessageInvalid()
         {
-            //Arrange
-            Message message = new Message();
-            Mock<IMessageRepository> mockMessageRepository = new Mock<IMessageRepository>();
-            mockMessageRepository.Setup(r => r.PostMessage(message)).ReturnsAsync("Message added successfully");
-            IMessageService messageService = new MessageService(mockMessageRepository.Object);
-            string expected = "Message invalid";
+            var message = new Message()
+            {
+                Content = "",
+                TopicId = 1,
+                UserId = 1
+            };
 
-            //Act
+            var expectedMessage = "Message invalid";
 
-            var result = await messageService.PostMessage(message);
+            _mockUserRepository.Setup(r => r.GetUser(message.UserId)).ReturnsAsync(_user);
+            _mockTopicRepository.Setup(r => r.GetTopic(message.TopicId)).ReturnsAsync(_topic);
+            _mockMessageRepository.Setup(r => r.PostMessage(It.Is<Message>(x => x.UserId == _user.UserId && x.TopicId == _topic.TopisID)))
+                .ReturnsAsync(expectedMessage);
+            IMessageService messageService = new MessageService(
+                _mockMessageRepository.Object, _mockTopicRepository.Object, _mockUserRepository.Object);
 
-            //Assert
-            Assert.Equal(expected, result?.Value?.ToString());
+            var result = await messageService.PostMessage(message.Content, message.UserId, message.TopicId);
+            Assert.Equal(expectedMessage, result?.Value?.ToString());
         }
     }
 }

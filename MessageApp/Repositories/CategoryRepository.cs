@@ -20,9 +20,9 @@ namespace MessageApp.Services
             return await _context.Categories.ToListAsync();
         }
 
-        public Task<ActionResult<Category>> GetCategory(int id)
+        public async Task<ActionResult<Category>> GetCategory(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Categories.Where(x => x.CategoryID == id).FirstAsync();
         }
 
         public async Task<ActionResult<string>> PostCategory(Category category)

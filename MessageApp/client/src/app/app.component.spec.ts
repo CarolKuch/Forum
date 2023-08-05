@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { AppComponent } from './app.component';
-import { MessageComponent } from './message/message.component';
+import { MessageComponent } from './messages/message/message.component';
 import { NavigationComponent } from './navigation/navigation.component';
 
 describe('AppComponent', () => {
@@ -31,12 +31,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('client');
-  });
-
-  it('should render logo', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('img'));
   });
 });

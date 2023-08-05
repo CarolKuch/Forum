@@ -9,12 +9,12 @@ import { Category } from '../_models/Category';
 })
 export class CategoriesComponent implements OnInit {
 
-  categories: Category[] | any;
+  categories: Category[] = [];
 
   constructor(private http: HttpClient) { };
 
   ngOnInit(): void {
-    this.http.get('https://localhost:7287/Category').subscribe({
+    this.http.get<Category[]>('https://localhost:7287/Category').subscribe({
       next: response => this.categories = response,
       error: error => console.log(error),
       complete: () => {
@@ -22,8 +22,8 @@ export class CategoriesComponent implements OnInit {
           this.categories[i].time = this.categories[i].date.slice(11, 16);
           this.categories[i].date = this.categories[i].date.slice(0, 10);
         }
+        console.log(this.categories);
       }
     });
   }
-
 }

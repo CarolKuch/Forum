@@ -1,5 +1,5 @@
 export interface ITopic {
-  topicId: number;
+  topisID: number;
   title: string;
   date: string;
   time: string;

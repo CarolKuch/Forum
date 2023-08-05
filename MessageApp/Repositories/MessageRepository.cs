@@ -33,6 +33,15 @@ namespace MessageApp.Repositories
             return await _context.Messages.ToListAsync();
         }
 
+        public async Task<MessageAuthorDto> GetMessageAuthorDtoByMessageId(int messageId)
+        {
+            var message = await _mapper.ProjectTo<MessageAuthorDto>(_context.Messages.Where(x => x.MessageID == messageId)).FirstAsync();
+            var user = await _userRepository.GetUser(message.UserId);
+            message.UserLogin = user.Login;
+            message.IsUserAdmin = user.IsAdmin;
+            return message;
+        }
+
         public Task<List<MessageAuthorDto>> GetMessageAuthorDtos()
         {
             var result = _mapper.ProjectTo<MessageAuthorDto>(_context.Messages).ToListAsync();
@@ -48,6 +57,7 @@ namespace MessageApp.Repositories
 
         public async Task<ActionResult<string>> PostMessage(Message message)
         {
+            message.Date = DateTime.Now;
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
             return "Message added successfully";

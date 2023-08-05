@@ -1,0 +1,7 @@
+<div *ngIf="messages.length > 0; else topicHasNoMessages">
+  <app-message *ngFor="let message of messages" [message]="message"></app-message>
+</div>
+<ng-template #topicHasNoMessages>
+  <div>This topic has no messages yet.</div>
+  <button>Add new message</button>
+</ng-template>

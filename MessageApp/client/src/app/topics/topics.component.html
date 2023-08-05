@@ -1,0 +1,8 @@
+<h2>Category id is: {{categoryId}}</h2>
+<div class="topics">
+  <div class="topics-headers">
+    <div class="topics-headers-title">Topic title</div>
+    <div class="topics-headers-date">Added on</div>
+  </div>
+  <app-topic *ngFor="let topic of topics" [topic]="topic"></app-topic>
+</div>

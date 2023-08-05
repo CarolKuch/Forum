@@ -13,14 +13,15 @@ namespace MessageApp.Services
             _categoryRepository = categoryRepository;
         }
 
-        public Task<ActionResult<Category>> GetCategory(int id)
+        public async Task<ActionResult<Category>> GetCategory(int id)
         {
-            throw new NotImplementedException();
+            return await _categoryRepository.GetCategory(id);
         }
 
-        public Task<ActionResult<IEnumerable<Category>>> GetCategories()
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
-            return _categoryRepository.GetCategories();
+            var categories = await _categoryRepository.GetCategories();
+            return categories;
         }
 
         public async Task<ActionResult<string>> PostCategory(Category category)
