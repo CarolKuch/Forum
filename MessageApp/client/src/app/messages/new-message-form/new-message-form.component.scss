@@ -1,0 +1,18 @@
+@use "../../../assets/styles/mixins" as mix;
+
+button {
+  @include mix.app-button(var(--app-khaki), var(--app-yellow), var(--app-black));
+}
+
+label{
+  width: 100%;
+}
+
+textarea{
+  height: 20vh;
+  resize: none;
+}
+
+.new-message-container{
+  margin: var(--app-margin-medium);
+}
