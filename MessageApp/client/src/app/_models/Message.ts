@@ -8,7 +8,10 @@ export class Message implements IMessage {
   public userLogin: string;
   public userId: number;
   public isUserAdmin: boolean;
-  constructor(messageId: number = -1, content: string = '', date: string = '', time: string = '', userLogin: string = '', userId: number = -1, isUserAdmin: boolean = false) {
+  public topicId: number;
+  constructor(messageId: number = -1, content: string = '',
+    date: string = '', time: string = '', userLogin: string = '',
+    userId: number = -1, isUserAdmin: boolean = false, topicId = -1) {
     this.messageId = messageId;
     this.content = content;
     this.date = date;
@@ -16,6 +19,7 @@ export class Message implements IMessage {
     this.userLogin = userLogin;
     this.userId = userId;
     this.isUserAdmin = isUserAdmin;
+    this.topicId = topicId;
   }
 
 }

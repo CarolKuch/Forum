@@ -1,20 +1,20 @@
 <div class="new-message-container">
-  <form [formGroup]="angForm" novalidate>
+  <form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label>Post your message:
+      <label><p>Post your message to this topis:</p>
         <textarea class="form-control" formControlName="content"></textarea>
       </label>
     </div>
-    <div *ngIf="angForm.controls['content'].invalid && (angForm.controls['content'].dirty || angForm.controls['content'].touched)" class="alert alert-danger">
-        <div *ngIf="angForm.controls['content'].errors?.['required']">
+    <div *ngIf="form.controls['content'].invalid && (form.controls['content'].dirty || form.controls['content'].touched)" class="alert alert-danger">
+        <div *ngIf="form.controls['content'].errors?.['required']">
         Message content is required to post your message.
         </div>
-        <div *ngIf="angForm.controls['content'].errors?.['minlength']">
+        <div *ngIf="form.controls['content'].errors?.['minlength']">
           Message content must be at least 5 characters long.
           </div>
     </div>
+    <button class="btn" [disabled]="form.pristine || form.invalid" type="submit">Add new message</button>
   </form>
-  <p>Form value: {{ angForm.value | json }}</p>
-  <p>Form status: {{ angForm.status | json }}</p>
-  <button class="btn" [disabled]="angForm.pristine || angForm.invalid" type="submit">Add new message</button>
+  <p>Form value: {{ form.value | json }}</p>
+  <p>Form status: {{ form.status | json }}</p>
 </div>

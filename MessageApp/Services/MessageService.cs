@@ -44,7 +44,7 @@ namespace MessageApp.Services
         public async Task<ActionResult<string>> PostMessage(string messageContent, int userId, int topicId)
         {
             var message = new Message();
-            if (messageContent.Length > 0)
+            if (messageContent.Length > 5)
             {
                 message.Content = messageContent;
                 message.UserId = userId;
