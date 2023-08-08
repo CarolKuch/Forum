@@ -14,6 +14,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { TopicsComponent } from './topics/topics.component';
 import { MessagesComponent } from './messages/messages.component';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NewMessageFormComponent } from './messages/new-message-form/new-message-form.component';
 
 @NgModule({
   declarations: [
@@ -25,14 +27,16 @@ import { RouterModule } from '@angular/router';
     TopicComponent,
     PageNotFoundComponent,
     TopicsComponent,
-    MessagesComponent
+    MessagesComponent,
+    NewMessageFormComponent
   ],
   imports: [
     BrowserModule,
     RouterModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

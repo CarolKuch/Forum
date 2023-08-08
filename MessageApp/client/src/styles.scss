@@ -1,10 +1,10 @@
 /* Global color palette */
 @import './assets/styles/variables';
 
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+
 body{
   color: var(--app-black);
   margin: 0;
 }
-
-/* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';

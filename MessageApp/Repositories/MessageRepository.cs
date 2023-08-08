@@ -55,12 +55,12 @@ namespace MessageApp.Repositories
             return result;
         }
 
-        public async Task<ActionResult<string>> PostMessage(Message message)
+        public async Task<ActionResult<Message>> PostMessage(Message message)
         {
             message.Date = DateTime.Now;
             _context.Messages.Add(message);
-            await _context.SaveChangesAsync();
-            return "Message added successfully";
+            var res = await _context.SaveChangesAsync();
+            return message;
         }
     }
 }

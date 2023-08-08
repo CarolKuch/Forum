@@ -8,8 +8,8 @@ using Microsoft.Extensions.Logging;
 using Moq;
 
 using Microsoft.Extensions.Configuration;
-
-
+using MessageApp.DTOs;
+using DeepEqual.Syntax;
 
 namespace MessageAppTests
 {
@@ -38,7 +38,6 @@ namespace MessageAppTests
 
         public MessageServiceTests()
         {
-            
         }
 
         [Fact]
@@ -46,45 +45,53 @@ namespace MessageAppTests
         {
             var message = new Message()
             {
-                Content = "ABC",
+                Content = "ABCXXX",
                 TopicId = 1,
                 UserId = 1
             };
 
-            var expectedMessage = "Message added successfully";
+            var expectedObjectFromRepository = new Message()
+            {
+                Content = "ABCXXX",
+                TopicId = 1,
+                UserId = 1,
+                MessageID = 1,
+                Date = DateTime.MaxValue
+            };
 
+            var expected = new MessageAuthorDto() {
+                Content = "ABCXXX",
+                TopicId = 1,
+                UserId = 1,
+                MessageID = 1,
+                Date = DateTime.MaxValue,
+                IsUserAdmin = _user.IsAdmin,
+                UserLogin = _user.Login
+             };
             _mockUserRepository.Setup(r => r.GetUser(message.UserId)).ReturnsAsync(_user);
             _mockTopicRepository.Setup(r => r.GetTopic(message.TopicId)).ReturnsAsync(_topic);
             _mockMessageRepository.Setup(r => r.PostMessage(It.Is<Message>(x => x.UserId == _user.UserId && x.TopicId == _topic.TopisID)))
-                .ReturnsAsync(expectedMessage);
+                .ReturnsAsync(expectedObjectFromRepository);
             IMessageService messageService = new MessageService(
                 _mockMessageRepository.Object, _mockTopicRepository.Object, _mockUserRepository.Object);
 
-            var result = await messageService.PostMessage(message.Content, message.UserId, message.TopicId);
-            Assert.Equal(expectedMessage, result?.Value?.ToString());
+            var result = (await messageService.PostMessage(message.Content, message.UserId, message.TopicId)).Value;
+            expected.WithDeepEqual(result).Assert();
         }
 
         [Fact]
         public async void PostMessage_ReturnsString_WhenMessageInvalid()
         {
-            var message = new Message()
-            {
-                Content = "",
-                TopicId = 1,
-                UserId = 1
-            };
+            string invalidMessageContent = "";
 
-            var expectedMessage = "Message invalid";
+            var expected = new MessageAuthorDto();
 
-            _mockUserRepository.Setup(r => r.GetUser(message.UserId)).ReturnsAsync(_user);
-            _mockTopicRepository.Setup(r => r.GetTopic(message.TopicId)).ReturnsAsync(_topic);
-            _mockMessageRepository.Setup(r => r.PostMessage(It.Is<Message>(x => x.UserId == _user.UserId && x.TopicId == _topic.TopisID)))
-                .ReturnsAsync(expectedMessage);
             IMessageService messageService = new MessageService(
                 _mockMessageRepository.Object, _mockTopicRepository.Object, _mockUserRepository.Object);
 
-            var result = await messageService.PostMessage(message.Content, message.UserId, message.TopicId);
-            Assert.Equal(expectedMessage, result?.Value?.ToString());
+            var result = (await messageService.PostMessage(invalidMessageContent, _user.UserId, _topic.TopisID)).Value;
+
+            expected.WithDeepEqual(result).Assert();
         }
     }
 }

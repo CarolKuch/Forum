@@ -1,0 +1,25 @@
+  @mixin app-button($color_1, $color_2, $color_3) {
+    border: 2px solid $color_1;
+    padding: 6px 24px;
+    letter-spacing: 1px;
+    color: $color_3;
+    background-color: $color_2;
+    transition: all 0.25s ease-in-out;
+    &:hover {
+        background-color: $color_1;
+        border-color: $color_1;
+        color: $color_2;
+      }
+    &:active {
+        background-color: $color_1;
+        border-color: $color_1;
+        color: $color_2;
+        box-shadow: none;
+    }
+    &:focus, &:active:focus {
+        background-color: $color_1;
+        border-color: $color_1;
+        color: $color_2;
+        outline: 5px auto $color_1;
+    }
+  }

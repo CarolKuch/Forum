@@ -1,3 +1,5 @@
+@use "../../assets/styles/mixins" as mix;
+
 .navbar{
   background-color: var(--app-black);
   margin: 0px;
@@ -9,8 +11,7 @@ img{
 }
 
 .btn{
-  background-color: var(--app-yellow);
-  color: var(--app-black);
+  @include mix.app-button(var(--app-khaki), var(--app-yellow), var(--app-black));
 }
 
 .navbar-toggler {

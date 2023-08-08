@@ -8,5 +8,6 @@
         public int UserId { get; set; }
         public string? UserLogin { get; set; }
         public bool IsUserAdmin { get; set; }
+        public int TopicId { get; set; }
     }
 }
