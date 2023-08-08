@@ -23,7 +23,11 @@ namespace MessageApp.Services
 
         public async Task<ActionResult<IEnumerable<MessageAuthorDto>>> GetMessagesInTopic(int topicId)
         {
-            return await _topicRepository.GetMessagesInTopic(topicId);
+            if (topicId > 0)
+            {
+                return await _topicRepository.GetMessagesInTopic(topicId);
+            }
+            else throw new Exception();
         }
 
         public async Task<ActionResult<IEnumerable<Topic>>> GetTopicsByCategoryId(int categoryId)
