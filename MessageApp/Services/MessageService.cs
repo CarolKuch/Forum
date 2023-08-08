@@ -41,21 +41,29 @@ namespace MessageApp.Services
             return await _messageRepository.GetMessageAuthorDtos();
         }
 
-        public async Task<ActionResult<string>> PostMessage(string messageContent, int userId, int topicId)
+        public async Task<ActionResult<MessageAuthorDto>> PostMessage(string messageContent, int userId, int topicId)
         {
             var message = new Message();
+
             if (messageContent.Length > 5)
             {
                 message.Content = messageContent;
                 message.UserId = userId;
                 message.TopicId = topicId;
-                var result = await _messageRepository.PostMessage(message);
-                return result;
+                var date = (await _messageRepository.PostMessage(message)).Value;
+                var user = _userRepository.GetUser(userId).Result;
+                return new MessageAuthorDto
+                {
+                    MessageID = date.MessageID,
+                    Content = messageContent,
+                    UserId = userId,
+                    TopicId = topicId,
+                    IsUserAdmin = user.IsAdmin,
+                    UserLogin = user.Login,
+                    Date = date.Date,
+                };
             }
-            else
-            {
-                return "Message invalid";
-            }
+            else return new MessageAuthorDto();
         }
     }
 }

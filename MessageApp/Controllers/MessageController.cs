@@ -44,18 +44,10 @@ namespace MessageApp.Controllers
        
 
         [HttpPost]
-        public async Task<ActionResult<string>> PostMessage(MessageAuthorDto message)
+        public async Task<ActionResult<MessageAuthorDto>> PostMessage(MessageAuthorDto message)
         {
-            if (message.Content?.Length > 5 
-                && message.UserId != -1 
-                && message.TopicId != -1)
-            {
-                return await _messageService.PostMessage(message.Content, message.UserId, message.TopicId);
-            }
-            else
-            {
-                return "Message invalid";
-            }
+            if (message.Content?.Length < 5 || message.Content == null) return BadRequest("Message invalid");
+            return await _messageService.PostMessage(message.Content, message.UserId, message.TopicId);
         }
     }
 }

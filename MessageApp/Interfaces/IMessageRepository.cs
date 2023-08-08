@@ -10,6 +10,6 @@ namespace MessageApp.Interfaces
         public Task<ActionResult<IEnumerable<Message>>> GetMessages();
         public Task<MessageAuthorDto> GetMessageAuthorDtoByMessageId(int messageId);
         public Task<List<MessageAuthorDto>> GetMessageAuthorDtos();
-        public Task<ActionResult<string>> PostMessage(Message message);
+        public Task<ActionResult<Message>> PostMessage(Message message);
     }
 }

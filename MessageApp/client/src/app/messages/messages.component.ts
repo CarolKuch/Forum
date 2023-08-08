@@ -29,4 +29,8 @@ export class MessagesComponent {
       }
     });
   }
+
+  addMessage(newMessage: Message) {
+    this.messages.push(newMessage);
+  }
 }

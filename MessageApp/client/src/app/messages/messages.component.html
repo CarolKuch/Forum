@@ -4,4 +4,4 @@
 <ng-template #topicHasNoMessages>
   <div>This topic has no messages yet.</div>
 </ng-template>
-<app-new-message-form></app-new-message-form>
+<app-new-message-form [topicId]="topicId" (newlyAddedMessageEvent)="addMessage($event)"></app-new-message-form>
