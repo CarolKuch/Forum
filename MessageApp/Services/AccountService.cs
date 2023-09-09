@@ -18,8 +18,19 @@ namespace MessageApp.Services
 
         public async Task<ActionResult<User>> Register(RegisterDto registerDto)
         {
+            var user = CreateNewUser(registerDto);
+            return await _accountRepository.Register(user);
+        }
+
+        public Task<bool> UserExists(string username)
+        {
+            return _accountRepository.UserExists(username);
+        }
+
+        private User CreateNewUser(RegisterDto registerDto)
+        {
             using var hmac = new HMACSHA512();
-            var user = new User
+            return new User
             {
                 Login = registerDto.Login.ToLower(),
                 LastName = registerDto.LastName,
@@ -28,12 +39,6 @@ namespace MessageApp.Services
                 PasswordSalt = hmac.Key
             };
 
-            return await _accountRepository.Register(user);
-        }
-
-        public Task<bool> UserExists(string username)
-        {
-            return _accountRepository.UserExists(username);
         }
     }
 }

@@ -17,6 +17,7 @@ namespace MessageApp.Services
 
         public async Task<ActionResult<User>> Register(User user)
         {
+            user.EnrollmentDate = DateTime.Now;
             _context.Add(user);
             await _context.SaveChangesAsync();
             return user;

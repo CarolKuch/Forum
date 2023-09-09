@@ -49,9 +49,8 @@ namespace MessageAppTests
             {
                 Title = "Abc abc bbx"
             };
-            Mock<ICategoryRepository> mockCategoryRepository = new Mock<ICategoryRepository>();
-            mockCategoryRepository.Setup(r => r.PostCategory(category)).ReturnsAsync("Category added successfully");
-            ICategoryService categoryService = new CategoryService(mockCategoryRepository.Object);
+            _mockCategoryRepository.Setup(r => r.PostCategory(category)).ReturnsAsync("Category added successfully");
+            ICategoryService categoryService = new CategoryService(_mockCategoryRepository.Object);
             string expected = "Category added successfully";
 
             //Act
@@ -68,9 +67,8 @@ namespace MessageAppTests
         {
             //Arrange
             Category category = new Category();
-            Mock<ICategoryRepository> mockCategoryRepository = new Mock<ICategoryRepository>();
-            mockCategoryRepository.Setup(r => r.PostCategory(category)).ReturnsAsync("Category added successfully");
-            ICategoryService categoryService = new CategoryService(mockCategoryRepository.Object);
+            _mockCategoryRepository.Setup(r => r.PostCategory(category)).ReturnsAsync("Category added successfully");
+            ICategoryService categoryService = new CategoryService(_mockCategoryRepository.Object);
             string expected = "Category invalid";
 
             //Act
