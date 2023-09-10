@@ -68,7 +68,7 @@ namespace MessageAppTests
                 IsUserAdmin = _user.IsAdmin,
                 UserLogin = _user.Login
              };
-            _mockUserRepository.Setup(r => r.GetUser(message.UserId)).ReturnsAsync(_user);
+            _mockUserRepository.Setup(r => r.GetUserById(message.UserId)).ReturnsAsync(_user);
             _mockTopicRepository.Setup(r => r.GetTopic(message.TopicId)).ReturnsAsync(_topic);
             _mockMessageRepository.Setup(r => r.PostMessage(It.Is<Message>(x => x.UserId == _user.UserId && x.TopicId == _topic.TopisID)))
                 .ReturnsAsync(expectedObjectFromRepository);

@@ -51,7 +51,7 @@ namespace MessageApp.Services
                 message.UserId = userId;
                 message.TopicId = topicId;
                 var date = (await _messageRepository.PostMessage(message)).Value;
-                var user = _userRepository.GetUser(userId).Result;
+                var user = (await _userRepository.GetUserById(userId));
                 return new MessageAuthorDto
                 {
                     MessageID = date.MessageID,

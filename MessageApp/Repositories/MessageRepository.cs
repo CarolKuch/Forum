@@ -36,7 +36,7 @@ namespace MessageApp.Repositories
         public async Task<MessageAuthorDto> GetMessageAuthorDtoByMessageId(int messageId)
         {
             var message = await _mapper.ProjectTo<MessageAuthorDto>(_context.Messages.Where(x => x.MessageID == messageId)).FirstAsync();
-            var user = await _userRepository.GetUser(message.UserId);
+            var user = await _userRepository.GetUserById(message.UserId);
             message.UserLogin = user.Login;
             message.IsUserAdmin = user.IsAdmin;
             return message;
@@ -47,7 +47,7 @@ namespace MessageApp.Repositories
             var result = _mapper.ProjectTo<MessageAuthorDto>(_context.Messages).ToListAsync();
             result.Result.ForEach(message =>
             {
-                var user = _userRepository.GetUser(message.UserId);
+                var user = _userRepository.GetUserById(message.UserId);
                 message.UserLogin = user.Result.Login;
                 message.IsUserAdmin = user.Result.IsAdmin;
             });

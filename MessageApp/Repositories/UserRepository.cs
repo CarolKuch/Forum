@@ -15,11 +15,18 @@ namespace MessageApp.Repositories
             _context = dataContext;
         }
 
-        public async Task<User> GetUser(int id)
+        public async Task<User> GetUserById(int id)
         {
             return await _context.Users.Where(x => x.UserId == id).SingleAsync();
         }
 
+        public async Task<User?> GetUserByLogin(string login)
+        {
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.Login == login.ToLower());
+            if (user == null) return null;
+            return user;
+        }
+       
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return await _context.Users.ToListAsync();
