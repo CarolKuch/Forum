@@ -27,6 +27,19 @@ namespace MessageApp.Services
             return _accountRepository.UserExists(username);
         }
 
+        public bool CheckIfPasswordIsCorrect(User user, string password)
+        {
+            using var hmac = new HMACSHA512(user.PasswordSalt);
+
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+            for (int i = 0; i < computedHash.Length; i++)
+            {
+                if (computedHash[i] != user.PasswordHash[i]) return false;
+            }
+            return true;
+        }
+
         private User CreateNewUser(RegisterDto registerDto)
         {
             using var hmac = new HMACSHA512();
@@ -38,7 +51,7 @@ namespace MessageApp.Services
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key
             };
-
         }
+
     }
 }

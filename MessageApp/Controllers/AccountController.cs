@@ -16,11 +16,13 @@ namespace MessageApp.Controllers
     {
         private DataContext _context;
         private IAccountService _accountService;
+        private IUserService _userService;
 
-        public AccountController(DataContext context, IAccountService accountService)
+        public AccountController(DataContext context, IAccountService accountService, IUserService userService)
         {
             _context = context;
             _accountService = accountService;
+            _userService = userService;
         }
 
         [HttpPost("register")]
@@ -29,6 +31,17 @@ namespace MessageApp.Controllers
             if (await UserExists(registerDto.Login)) return BadRequest("Login is taken");
 
             return await _accountService.Register(registerDto);
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<User>> Login(LoginDto loginDto)
+        {
+            var user = await _userService.GetUserByLogin(loginDto.Login);
+            if (user == null) return Unauthorized("User doesn't exist");
+
+            var isPasswordCorrect = _accountService.CheckIfPasswordIsCorrect(user, loginDto.Password);
+
+            return (isPasswordCorrect) ? user : Unauthorized("Invalid password");
         }
 
         private async Task<bool> UserExists(string username)

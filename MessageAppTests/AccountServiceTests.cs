@@ -12,6 +12,7 @@ using MessageApp.DTOs;
 using DeepEqual.Syntax;
 using System.Text;
 using System.Reflection;
+using System.Security.Cryptography;
 
 namespace MessageAppTests
 {
@@ -55,6 +56,46 @@ namespace MessageAppTests
             var result = await accountService.UserExists(takenUsername);
 
             Assert.True(result);
+        }
+
+        [Fact]
+        public async void CheckIfPasswordIsCorrect_ReturnsTrue_WhenPasswordIsCorrect()
+        {
+            IAccountService accountService = new AccountService(_mockAccountRepository.Object);
+            var password = "string";
+            using var hmac = new HMACSHA512();
+            var user = new User
+            {
+                Login = "carol",
+                LastName = "LastName",
+                Name = "Name",
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password)),
+                PasswordSalt = hmac.Key
+            };
+
+            var result = accountService.CheckIfPasswordIsCorrect(user, password);
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public async void CheckIfPasswordIsCorrect_ReturnsFalse_WhenPasswordIsNotCorrect()
+        {
+            IAccountService accountService = new AccountService(_mockAccountRepository.Object);
+            var password = "string";
+            using var hmac = new HMACSHA512();
+            var user = new User
+            {
+                Login = "carol",
+                LastName = "LastName",
+                Name = "Name",
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("snai2na@ks")),
+                PasswordSalt = hmac.Key
+            };
+
+            var result = accountService.CheckIfPasswordIsCorrect(user, password);
+
+            Assert.False(result);
         }
 
         [Fact]

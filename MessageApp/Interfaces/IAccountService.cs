@@ -8,5 +8,6 @@ namespace MessageApp.Interfaces
     {
         public Task<ActionResult<User>> Register(RegisterDto registerDto);
         public Task<bool> UserExists(string username);
+        public bool CheckIfPasswordIsCorrect(User user, string password);
     }
 }

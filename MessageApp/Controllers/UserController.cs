@@ -17,10 +17,16 @@ namespace MessageApp.Controllers
             _userService = userService;
         }
 
-        [HttpGet]
-        public async Task<User> GetUser(int id)
+        [HttpGet("userId")]
+        public async Task<User> GetUserById(int id)
         {
-            return await _userService.GetUser(id);
+            return await _userService.GetUserById(id);
+        }
+
+        [HttpGet("login")]
+        public async Task<User?> GetUserByLogin(string login)
+        {
+            return await _userService.GetUserByLogin(login);
         }
 
         [HttpPost]
