@@ -7,7 +7,7 @@ import { Message } from 'src/app/_models/Message';
 @Component({
   selector: 'app-new-message-form',
   templateUrl: './new-message-form.component.html',
-  styleUrls: ['./new-message-form.component.scss']
+  styleUrls: ['./new-message-form.component.scss'],
 })
 export class NewMessageFormComponent {
   @Output() newlyAddedMessageEvent = new EventEmitter<Message>();
@@ -20,7 +20,7 @@ export class NewMessageFormComponent {
   createForm() {
     return this.fb.group({
       content: ['', Validators.compose(
-        [Validators.minLength(5), Validators.required])]
+        [Validators.minLength(6), Validators.required])]
     });
   }
 

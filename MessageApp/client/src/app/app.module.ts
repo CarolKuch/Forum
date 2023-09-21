@@ -14,8 +14,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { TopicsComponent } from './topics/topics.component';
 import { MessagesComponent } from './messages/messages.component';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewMessageFormComponent } from './messages/new-message-form/new-message-form.component';
+import { RegisterComponent } from './register/register.component';
+import { InputTextComponent } from './_forms/input-text/input-text.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { NewMessageFormComponent } from './messages/new-message-form/new-message
     PageNotFoundComponent,
     TopicsComponent,
     MessagesComponent,
-    NewMessageFormComponent
+    NewMessageFormComponent,
+    RegisterComponent,
+    InputTextComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,8 @@ import { NewMessageFormComponent } from './messages/new-message-form/new-message
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

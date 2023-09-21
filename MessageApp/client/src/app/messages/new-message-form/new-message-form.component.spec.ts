@@ -1,6 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewMessageFormComponent } from './new-message-form.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('NewMessageFormComponent', () => {
   let component: NewMessageFormComponent;
@@ -8,9 +13,10 @@ describe('NewMessageFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewMessageFormComponent ]
+      declarations: [NewMessageFormComponent],
+      imports: [BrowserModule, HttpClientTestingModule, NgbModule, ReactiveFormsModule],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(NewMessageFormComponent);
     component = fixture.componentInstance;

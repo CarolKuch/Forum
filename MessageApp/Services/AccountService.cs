@@ -43,7 +43,7 @@ namespace MessageApp.Services
         private User CreateNewUser(RegisterDto registerDto)
         {
             using var hmac = new HMACSHA512();
-            return new User
+            var user = new User
             {
                 Login = registerDto.Login.ToLower(),
                 LastName = registerDto.LastName,
@@ -51,6 +51,8 @@ namespace MessageApp.Services
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key
             };
+
+            return user;
         }
 
     }

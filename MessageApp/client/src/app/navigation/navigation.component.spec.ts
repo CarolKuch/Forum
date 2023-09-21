@@ -3,6 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavigationComponent } from './navigation.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -11,7 +13,7 @@ describe('NavigationComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [NavigationComponent],
-      imports: [RouterTestingModule, NgbModule],
+      imports: [RouterTestingModule, NgbModule, HttpClientTestingModule, FormsModule, ReactiveFormsModule],
     })
       .compileComponents();
 
