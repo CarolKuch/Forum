@@ -12,6 +12,12 @@ img{
 
 .btn{
   @include mix.app-button(var(--app-khaki), var(--app-yellow), var(--app-black));
+  margin-right: var(--app-margin-extra-small);
+}
+
+.btn-login{
+  @include mix.app-button(var(--app-yellow), var(--app-khaki), var(--app-black));
+  border-color: var(--app-khaki);
 }
 
 .navbar-toggler {
@@ -22,7 +28,6 @@ img{
 a{
   color: var(--app-khaki);
   text-decoration: none;
-  margin: var(--app-magrin-medium);
 }
 
 .is-active{
@@ -30,11 +35,18 @@ a{
 }
 
 .input-group{
+  margin-right: var(--app-margin-small);
   justify-content: flex-end;
 }
 
 input{
-  max-width: 30vw;
+  max-width: 15vw;
+  margin-right: var(--app-margin-extra-small);
+}
+
+.logout{
+  margin-right: var(--app-margin-small);
+  margin-left: auto;
 }
 
 ::placeholder{

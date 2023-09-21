@@ -4,6 +4,8 @@ import { MessagesComponent } from './messages.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { RouterModule } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NewMessageFormComponent } from './new-message-form/new-message-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('MessagesComponent', () => {
   let component: MessagesComponent;
@@ -11,8 +13,8 @@ describe('MessagesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MessagesComponent],
-      imports: [HttpClientTestingModule, RouterTestingModule],
+      declarations: [MessagesComponent, NewMessageFormComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, FormsModule],
     })
       .compileComponents();
 

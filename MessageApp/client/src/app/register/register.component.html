@@ -1,0 +1,17 @@
+<form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
+  <h2 class="text-center">Sign up</h2>
+  <div class="form-container">
+    <app-input-text [formControl]="$any(registerForm.controls['login'])" [label]="'login'"></app-input-text>
+    <app-input-text [formControl]="$any(registerForm.controls['lastName'])" [label]="'last name'"></app-input-text>
+    <app-input-text [formControl]="$any(registerForm.controls['name'])" [label]="'name'"></app-input-text>
+    <app-input-text [formControl]="$any(registerForm.controls['password'])" [label]="'password'" [type]="'password'"></app-input-text>
+    <app-input-text [formControl]="$any(registerForm.controls['confirmPassword'])" [label]="'confirm password'" [type]="'password'"></app-input-text>
+    <div class="text-center">
+      <button class="btn btn-register" type="submit">Register</button>
+      <button class="btn btn-cancel btn-danger" type="submit" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</form>
+
+<p>Form value: {{registerForm.value | json}}</p>
+<p>Form value: {{registerForm.status | json}}</p>

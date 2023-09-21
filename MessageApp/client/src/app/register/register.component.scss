@@ -1,0 +1,31 @@
+@use "../../assets/styles/mixins" as mix;
+
+form{
+  width: 60vw;
+  margin: auto;
+}
+
+h2{
+  margin: var(--app-margin-medium);
+  text-align: center;
+}
+
+.form-container{
+  margin: var(--app-margin-medium);
+  border: 2px solid var(--app-khaki);
+  display: grid;
+  grid-template-columns: 4fr;
+  row-gap: var(--app-margin-small);
+  font-weight: bold;
+  padding: var(--app-padding-medium) var(--app-padding-small);
+  border: 1px solid var(--app-khaki);
+}
+
+.btn-register{
+  @include mix.app-button(var(--app-khaki), var(--app-yellow), var(--app-black));
+  margin-right: var(--app-margin-small);
+}
+
+.btn-cancel{
+  @include mix.app-button(#bb2d3b, #DC3545, var(--app-white));
+}

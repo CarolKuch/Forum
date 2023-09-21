@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { error } from 'console';
 import { Message } from './_models/Message';
 import { map } from 'rxjs';
+import { AccountService } from './_services/account.service';
+import { User } from './_models/User';
 
 
 
@@ -16,9 +18,14 @@ export class AppComponent implements OnInit {
   messages: any;
   categories: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private accountService: AccountService) { }
 
   ngOnInit(): void {
+    this.getCategories();
+    this.setCurrentUser();
+  }
+
+  getCategories() {
     this.http.get('https://localhost:7287/Category').subscribe({
       next: response => this.categories = response,
       error: error => console.log(error),
@@ -29,17 +36,12 @@ export class AppComponent implements OnInit {
         }
       }
     });
-
-    this.http.get('https://localhost:7287/Message/dtos').subscribe({
-      next: response => this.messages = response,
-      error: error => console.log(error),
-      complete: () => {
-        for (let i = 0; i < this.messages.length; i++) {
-          this.messages[i].time = this.messages[i].date.slice(11, 16);
-          this.messages[i].date = this.messages[i].date.slice(0, 10);
-        }
-      }
-    });
   }
 
+  setCurrentUser() {
+    const userString = localStorage.getItem('user');
+    if (!userString) return;
+    const user: User = JSON.parse(userString);
+    this.accountService.setCurrentUser(user);
+  }
 }

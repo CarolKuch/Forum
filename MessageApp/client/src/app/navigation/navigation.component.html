@@ -22,12 +22,15 @@
         <a class="nav-link" [routerLink]="['/topic']" routerLinkActive="is-active">Topic</a>
       </li>
     </ul>
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search">
+    <form #loginForm="ngForm" class="input-group" (ngSubmit)="login()" autocomplete="off"  *ngIf="!(accountService.currentUser$ | async)">
+      <input name="login" [(ngModel)]="model.login" type="text" class="form-control rounded" placeholder="Login">
+      <input name="password" [(ngModel)]="model.password"  type="password" class="form-control rounded" placeholder="Password">
       <div class="input-group-append">
-        <button class="btn" type="button">Search</button>
+        <button class="btn btn-login" type="submit">Log in</button>
+        <button class="btn btn-signup" type="button" [routerLink]="['/register']">Sign up</button>
       </div>
-    </div>
+    </form>
+    <button class="btn logout" type="submit" *ngIf="accountService.currentUser$ | async" (click)="logout()">Logout</button>
   </div>
 </nav>
 
