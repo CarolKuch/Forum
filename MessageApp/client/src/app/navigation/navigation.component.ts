@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../_services/account.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -10,11 +11,10 @@ export class NavigationComponent implements OnInit {
   model: any = {};
   public isCollapsed = true;
 
-  constructor(public accountService: AccountService) { }
+  constructor(public accountService: AccountService, private router: Router) { }
   ngOnInit(): void { }
 
   login() {
-    console.log(this.model);
     this.accountService.login(this.model).subscribe({
       next: response => {
         console.log(response);
@@ -22,8 +22,8 @@ export class NavigationComponent implements OnInit {
       error: error => {
         console.log(error);
       }
-    }
-    );
+    });
+    this.router.navigate(['/categories']);
   }
 
   logout() {

@@ -1,6 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { AccountService } from '../_services/account.service';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +10,7 @@ import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup = this.createForm();
-  constructor(private accountService: AccountService) {
+  constructor(private accountService: AccountService, private router: Router) {
 
   }
 
@@ -35,15 +36,13 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  model: any = {};
   register() {
-    console.log(this.registerForm?.value);
-    // this.accountService.register(this.model).subscribe({
-    //   next: response => {
-    //     console.log(response);
-    //   },
-    //   error: error => console.log(error)
-    // });
+    this.accountService.register(this.registerForm.value).subscribe({
+      next: response => {
+        this.router.navigateByUrl('/categories');
+      },
+      error: error => console.log(error)
+    });
   }
 
   cancel() {

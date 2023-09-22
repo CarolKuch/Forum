@@ -1,5 +1,5 @@
 # Forum
-Forum is an application that allows you to add, view and delete messages in various topics and categories.
+Forum is an application that allows you to add, view and delete messages in various topics and categories. You can register as a new user, login.
 
 ## General info
 
